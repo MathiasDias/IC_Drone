@@ -22,11 +22,11 @@ dir_res = 'resultados/res'+'_'+ dt_str
 os.mkdir(dir_res)
 
 IMAGE_SIZE = 512
-BATCH_SIZE = 8
+BATCH_SIZE = 2
 NUM_CLASSES = 4
 DATA_DIR = "instance-level_human_parsing/instance-level_human_parsing"
 print("DATADIR: ", DATA_DIR)
-NUM_TRAIN_IMAGES = 1
+NUM_TRAIN_IMAGES = 3
 NUM_VAL_IMAGES = 1
 
 #print("GLOB:", os.path.join(DATA_DIR, "Training/Images/*"))
@@ -193,14 +193,14 @@ model = FCN_model(len_classes=5, dropout_rate=0.2)
 loss = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 model.compile(
     optimizer=keras.optimizers.Adam(learning_rate=0.001),
-    loss=loss,
+    loss='sparse_categorical_crossentropy',
     metrics=["accuracy"],
     run_eagerly=True
 )
 
 ##Criar o Load e o Save para deixar salvo os pesos e carregar as imagens mais rapido depois, os links estão no email dia 9/06
 
-history = model.fit(train_dataset, validation_data=val_dataset, epochs=500)
+history = model.fit(train_dataset, validation_data=val_dataset, epochs=1)
 model.save(os.path.join(dir_res,'model'))
 
 plt.plot(history.history["loss"])

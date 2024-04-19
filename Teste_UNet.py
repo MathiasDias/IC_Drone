@@ -115,7 +115,7 @@ model.compile(
     run_eagerly=True
 )
 
-history = model.fit(train_dataset, validation_data=val_dataset, epochs=500)
+history = model.fit(train_dataset, validation_data=val_dataset, epochs=150)
 model.save(os.path.join(dir_res, 'model'))
 
 plt.plot(history.history["loss"])

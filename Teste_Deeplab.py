@@ -243,5 +243,18 @@ def plot_predictions(images_list, colormap, model):
             [image_tensor, overlay, prediction_colormap], file_name, figsize=(18, 14)
         )
 
+def plot_images(images_list, colormap, model):
+
+    for image_file in images_list:
+        image_tensor = read_image(image_file)
+        prediction_mask = infer(image_tensor=image_tensor, model=model)
+        prediction_colormap = decode_segmentation_masks(prediction_mask, colormap, 4)
+        file_name = os.path.join(dir_res,os.path.basename(image_file))
+        print("file_name:",file_name)
+        plot_samples_matplotlib(
+            prediction_colormap, file_name, figsize=(18, 14)
+        )
+
 #plot_predictions(train_images[:5], colormap, model=model)
 plot_predictions(val_images, colormap, model=model)
+plot_images(val_images, colormap, model=model)

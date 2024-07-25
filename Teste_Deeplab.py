@@ -153,7 +153,7 @@ model.compile(
 
 ##Criar o Load e o Save para deixar salvo os pesos e carregar as imagens mais rapido depois, os links estão no email dia 9/06
 
-history = model.fit(train_dataset, validation_data=val_dataset, epochs=500)
+history = model.fit(train_dataset, validation_data=val_dataset, epochs=150)
 model.save(os.path.join(dir_res,'model'))
 
 plt.plot(history.history["loss"])

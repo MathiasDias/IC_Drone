@@ -153,12 +153,12 @@ model.compile(
 
 ##Criar o Load e o Save para deixar salvo os pesos e carregar as imagens mais rapido depois, os links estão no email dia 9/06
 
-callback = keras.callbacks.EarlyStopping(monitor='loss', patience=15)
+callback = keras.callbacks.EarlyStopping(monitor='loss', patience=30)
 
 history = model.fit(train_dataset, validation_data=val_dataset, callbacks=[callback], epochs=300)
 model.save(os.path.join(dir_res,'model'))
 
-# Plot Training and Validation Loss on the same graph
+# Plotar Training and Validation Loss no mesmo grafico
 plt.plot(history.history["loss"], label="Training Loss")
 plt.plot(history.history["val_loss"], label="Validation Loss")
 plt.title("Training and Validation Loss")
@@ -169,7 +169,7 @@ plt.legend()
 plt.savefig(os.path.join(dir_res, 'loss_batch_' + str(BATCH_SIZE) + '.png'))
 plt.close()
 
-# Plot Training and Validation Accuracy on the same graph
+# Plotar Training and Validation Accuracy no mesmo grafico
 plt.plot(history.history["accuracy"], label="Training Accuracy")
 plt.plot(history.history["val_accuracy"], label="Validation Accuracy")
 plt.title("Training and Validation Accuracy")

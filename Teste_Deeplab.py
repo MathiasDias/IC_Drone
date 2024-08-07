@@ -153,35 +153,29 @@ model.compile(
 
 ##Criar o Load e o Save para deixar salvo os pesos e carregar as imagens mais rapido depois, os links estão no email dia 9/06
 
-history = model.fit(train_dataset, validation_data=val_dataset, epochs=150)
+callback = keras.callbacks.EarlyStopping(monitor='loss', patience=5)
+
+history = model.fit(train_dataset, validation_data=val_dataset, callbacks=[callback], epochs=300)
 model.save(os.path.join(dir_res,'model'))
 
-plt.plot(history.history["loss"])
-plt.title("Training Loss")
-plt.ylabel("loss")
-plt.xlabel("epoch")
-plt.savefig(os.path.join(dir_res,'training_loss_batch_'+str(BATCH_SIZE)+'.png'))
+# Plot Training and Validation Loss on the same graph
+plt.plot(history.history["loss"], label="Training Loss")
+plt.plot(history.history["val_loss"], label="Validation Loss")
+plt.title("Training and Validation Loss")
+plt.ylabel("Loss")
+plt.xlabel("Epoch")
+plt.legend()
+plt.savefig(os.path.join(dir_res, 'loss_batch_' + str(BATCH_SIZE) + '.png'))
 plt.close()
 
-plt.plot(history.history["accuracy"])
-plt.title("Training Accuracy")
-plt.ylabel("accuracy")
-plt.xlabel("epoch")
-plt.savefig(os.path.join(dir_res,'training_acc_batch_'+str(BATCH_SIZE)+'.png'))
-plt.close()
-
-plt.plot(history.history["val_loss"])
-plt.title("Validation Loss")
-plt.ylabel("val_loss")
-plt.xlabel("epoch")
-plt.savefig(os.path.join(dir_res,'validation_loss_batch_'+str(BATCH_SIZE)+'.png'))
-plt.close()
-
-plt.plot(history.history["val_accuracy"])
-plt.title("Validation Accuracy")
-plt.ylabel("val_accuracy")
-plt.xlabel("epoch")
-plt.savefig(os.path.join(dir_res,'validation_acc_batch_'+str(BATCH_SIZE)+'.png'))
+# Plot Training and Validation Accuracy on the same graph
+plt.plot(history.history["accuracy"], label="Training Accuracy")
+plt.plot(history.history["val_accuracy"], label="Validation Accuracy")
+plt.title("Training and Validation Accuracy")
+plt.ylabel("Accuracy")
+plt.xlabel("Epoch")
+plt.legend()
+plt.savefig(os.path.join(dir_res, 'accuracy_batch_' + str(BATCH_SIZE) + '.png'))
 plt.close()
 
 # Loading the Colormap

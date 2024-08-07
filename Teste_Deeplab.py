@@ -153,7 +153,7 @@ model.compile(
 
 ##Criar o Load e o Save para deixar salvo os pesos e carregar as imagens mais rapido depois, os links estão no email dia 9/06
 
-callback = keras.callbacks.EarlyStopping(monitor='loss', patience=5)
+callback = keras.callbacks.EarlyStopping(monitor='loss', patience=15)
 
 history = model.fit(train_dataset, validation_data=val_dataset, callbacks=[callback], epochs=300)
 model.save(os.path.join(dir_res,'model'))
@@ -164,6 +164,7 @@ plt.plot(history.history["val_loss"], label="Validation Loss")
 plt.title("Training and Validation Loss")
 plt.ylabel("Loss")
 plt.xlabel("Epoch")
+plt.ylim(0, 1)
 plt.legend()
 plt.savefig(os.path.join(dir_res, 'loss_batch_' + str(BATCH_SIZE) + '.png'))
 plt.close()
